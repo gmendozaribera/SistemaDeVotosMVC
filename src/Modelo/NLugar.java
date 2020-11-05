@@ -1,0 +1,77 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Modelo;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author German
+ */
+public class NLugar {
+
+    private DLugar modelo;
+
+    public NLugar() {
+        modelo = new DLugar();
+    }
+
+    public void guardar(String nombre, String tipo) {
+
+        modelo.setNombre(nombre);
+        modelo.setTipo(tipo);
+        try {
+            if (!"".equals(modelo.getNombre()) && !"".equals(modelo.getTipo())) {
+                modelo.guardar();
+                JOptionPane.showMessageDialog(null, "Registro Guardado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Revise que esten llenos los campos necesarios");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Hay un problema al registrar");
+        }
+    }
+
+    public void modificar(int id, String nombre, String tipo) {
+        modelo.setIdLugar(id);
+        modelo.setNombre(nombre);
+        modelo.setTipo(tipo);
+        try {
+            if (!"".equals(modelo.getNombre()) && !"".equals(modelo.getTipo())) {
+                modelo.modificar();
+                JOptionPane.showMessageDialog(null, "Registro Actualizado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Revise que esten llenos los campos necesarios");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Hay un problema al actualizar");
+        }
+    }
+
+    public void eliminar(int id) {
+        modelo.setIdLugar(id);
+        try {
+            modelo.eliminar();
+            JOptionPane.showMessageDialog(null, "Registro Eliminado");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Hay un problema al eliminar");
+        }
+    }
+
+    public DefaultTableModel listar() {
+        return modelo.getTabla();
+    }
+
+    public DefaultComboBoxModel getCombo() {
+        return modelo.getSelect();
+    }
+
+    public int getKey(String nombre){
+        modelo.setNombre(nombre);
+        return modelo.getKey();
+    }
+}
